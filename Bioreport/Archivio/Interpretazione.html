@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioReport</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+</head>
+<body>
+    <header> 
+        <h1>BioReport</h1>
+    </header>
+    
+    <!-- Link - bottone -->
+    <div style="text-align: right;">
+        <a href="Intro.html">
+            <button>Ritorna all'Intro</button>
+        </a>
+    </div>
+    
+
+    <div id="grafici">
+        <div id="interpretazionePassi" class="interpretazione"></div>       
+        <div id="interpretazioneFrequenzaCardiaca" class="interpretazione"></div>
+        <div id="interpretazioneFrequenzaRespiratoria" class="interpretazione"></div>
+        <div id="interpretazioneTemperatura" class="interpretazione"></div>
+        <div id="interpretazioneSpO2" class="interpretazione"></div>
+        <div id="interpretazioneSonnoOre" class="interpretazione"></div>
+        <div id="interpretazioneSonnoQualita" class="interpretazione"></div>
+    </div>
+    
+    <script type="module" src="Analisi.js" defer></script>
+
+    <footer class="footer">
+        <p>Report generato da Smartwatch Health Monitor &copy; 2025</p>
+    </footer>
+
+</body>
+</html>

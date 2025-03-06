@@ -1,0 +1,284 @@
+{
+    "giornalieri": [
+      {
+        "giorno": "2025-02-01",
+        "passi": 6500,
+        "frequenza_cardiaca": 70,
+        "frequenza_respiratoria": 25,
+        "temperatura": 36.6,
+        "spO2": 93,
+        "ore_sonno": 7,
+        "qualita_sonno": 60
+      },
+      {
+        "giorno": "2025-02-02",
+        "passi": 5200,
+        "frequenza_cardiaca": 82,
+        "frequenza_respiratoria": 19,
+        "temperatura": 36.7,
+        "spO2": 97,
+        "ore_sonno": 6.5,
+        "qualita_sonno": 78
+      },
+      {
+        "giorno": "2025-02-03",
+        "passi": 6000,
+        "frequenza_cardiaca": 78,
+        "frequenza_respiratoria": 17,
+        "temperatura": 36.5,
+        "spO2": 92,
+        "ore_sonno": 7.5,
+        "qualita_sonno": 69
+      },
+      {
+        "giorno": "2025-02-04",
+        "passi": 4000,
+        "frequenza_cardiaca": 73,
+        "frequenza_respiratoria": 22,
+        "temperatura": 36.8,
+        "spO2": 98,
+        "ore_sonno": 6,
+        "qualita_sonno": 82
+      },
+      {
+        "giorno": "2025-02-05",
+        "passi": 2500,
+        "frequenza_cardiaca": 75,
+        "frequenza_respiratoria": 19,
+        "temperatura": 36.6,
+        "spO2": 97,
+        "ore_sonno": 6.2,
+        "qualita_sonno": 86
+      },
+      {
+        "giorno": "2025-02-06",
+        "passi": 8700,
+        "frequenza_cardiaca": 85,
+        "frequenza_respiratoria": 20,
+        "temperatura": 36.7,
+        "spO2": 93,
+        "ore_sonno": 7,
+        "qualita_sonno": 57
+      },
+      {
+        "giorno": "2025-02-07",
+        "passi": 8300,
+        "frequenza_cardiaca": 70,
+        "frequenza_respiratoria": 18,
+        "temperatura": 36.6,
+        "spO2": 98,
+        "ore_sonno": 6.5,
+        "qualita_sonno": 64
+      },
+      {
+        "giorno": "2025-02-08",
+        "passi": 8000,
+        "frequenza_cardiaca": 92,
+        "frequenza_respiratoria": 21,
+        "temperatura": 36.7,
+        "spO2": 97,
+        "ore_sonno": 7.2,
+        "qualita_sonno": 85
+      },
+      {
+        "giorno": "2025-02-09",
+        "passi": 8900,
+        "frequenza_cardiaca": 74,
+        "frequenza_respiratoria": 17,
+        "temperatura": 36.6,
+        "spO2": 93,
+        "ore_sonno": 6.8,
+        "qualita_sonno": 90
+      },
+      {
+        "giorno": "2025-02-10",
+        "passi": 3500,
+        "frequenza_cardiaca": 76,
+        "frequenza_respiratoria": 18,
+        "temperatura": 36.5,
+        "spO2": 95,
+        "ore_sonno": 7,
+        "qualita_sonno": 79
+      },
+      {
+        "giorno": "2025-02-11",
+        "passi": 5300,
+        "frequenza_cardiaca": 83,
+        "frequenza_respiratoria": 23,
+        "temperatura": 36.7,
+        "spO2": 90,
+        "ore_sonno": 7.3,
+        "qualita_sonno": 70
+      },
+      {
+        "giorno": "2025-02-12",
+        "passi": 8900,
+        "frequenza_cardiaca": 70,
+        "frequenza_respiratoria": 24,
+        "temperatura": 36.6,
+        "spO2": 94,
+        "ore_sonno": 6.7,
+        "qualita_sonno": 85
+      },
+      {
+        "giorno": "2025-02-13",
+        "passi": 9200,
+        "frequenza_cardiaca": 75,
+        "frequenza_respiratoria": 19,
+        "temperatura": 36.6,
+        "spO2": 98,
+        "ore_sonno": 7.5,
+        "qualita_sonno": 67
+      },
+      {
+        "giorno": "2025-02-14",
+        "passi": 8600,
+        "frequenza_cardiaca": 71,
+        "frequenza_respiratoria": 25,
+        "temperatura": 36.7,
+        "spO2": 93,
+        "ore_sonno": 6.9,
+        "qualita_sonno": 84
+      },
+      {
+        "giorno": "2025-02-15",
+        "passi": 6500,
+        "frequenza_cardiaca": 73,
+        "frequenza_respiratoria": 19,
+        "temperatura": 36.6,
+        "spO2": 92,
+        "ore_sonno": 6.2,
+        "qualita_sonno": 59
+      },
+      {
+        "giorno": "2025-02-16",
+        "passi": 8900,
+        "frequenza_cardiaca": 75,
+        "frequenza_respiratoria": 18,
+        "temperatura": 36.7,
+        "spO2": 98,
+        "ore_sonno": 6.8,
+        "qualita_sonno": 86
+      },
+      {
+        "giorno": "2025-02-17",
+        "passi": 8100,
+        "frequenza_cardiaca": 72,
+        "frequenza_respiratoria": 19,
+        "temperatura": 36.6,
+        "spO2": 97,
+        "ore_sonno": 6.5,
+        "qualita_sonno": 68
+      },
+      {
+        "giorno": "2025-02-18",
+        "passi": 6400,
+        "frequenza_cardiaca": 74,
+        "frequenza_respiratoria": 23,
+        "temperatura": 36.7,
+        "spO2": 98,
+        "ore_sonno": 7.3,
+        "qualita_sonno": 50
+      },
+      {
+        "giorno": "2025-02-19",
+        "passi": 2200,
+        "frequenza_cardiaca": 91,
+        "frequenza_respiratoria": 22,
+        "temperatura": 36.6,
+        "spO2": 96,
+        "ore_sonno": 7,
+        "qualita_sonno": 87
+      },
+      {
+        "giorno": "2025-02-20",
+        "passi": 9100,
+        "frequenza_cardiaca": 70,
+        "frequenza_respiratoria": 25,
+        "temperatura": 36.7,
+        "spO2": 95,
+        "ore_sonno": 6.8,
+        "qualita_sonno": 75
+      },
+      {
+        "giorno": "2025-02-21",
+        "passi": 6500,
+        "frequenza_cardiaca": 72,
+        "frequenza_respiratoria": 17,
+        "temperatura": 36.6,
+        "spO2": 93,
+        "ore_sonno": 7.2,
+        "qualita_sonno": 60
+      },
+      {
+        "giorno": "2025-02-22",
+        "passi": 6000,
+        "frequenza_cardiaca": 90,
+        "frequenza_respiratoria": 22,
+        "temperatura": 36.7,
+        "spO2": 95,
+        "ore_sonno": 6.9,
+        "qualita_sonno": 82
+      },
+      {
+        "giorno": "2025-02-23",
+        "passi": 4600,
+        "frequenza_cardiaca": 75,
+        "frequenza_respiratoria": 19,
+        "temperatura": 36.6,
+        "spO2": 94,
+        "ore_sonno": 7,
+        "qualita_sonno": 75
+      },
+      {
+        "giorno": "2025-02-24",
+        "passi": 7200,
+        "frequenza_cardiaca": 72,
+        "frequenza_respiratoria": 22,
+        "temperatura": 36.7,
+        "spO2": 93,
+        "ore_sonno": 7.3,
+        "qualita_sonno": 88
+      },
+      {
+        "giorno": "2025-02-25",
+        "passi": 8800,
+        "frequenza_cardiaca": 74,
+        "frequenza_respiratoria": 22,
+        "temperatura": 36.6,
+        "spO2": 93,
+        "ore_sonno": 7,
+        "qualita_sonno": 70
+      },
+      {
+        "giorno": "2025-02-26",
+        "passi": 9300,
+        "frequenza_cardiaca": 71,
+        "frequenza_respiratoria": 19,
+        "temperatura": 36.6,
+        "spO2": 92,
+        "ore_sonno": 7.5,
+        "qualita_sonno": 90
+      },
+      {
+        "giorno": "2025-02-27",
+        "passi": 7100,
+        "frequenza_cardiaca": 83,
+        "frequenza_respiratoria": 20,
+        "temperatura": 36.5,
+        "spO2": 93,
+        "ore_sonno": 6.7,
+        "qualita_sonno": 65
+      },
+      {
+        "giorno": "2025-02-28",
+        "passi": 9700,
+        "frequenza_cardiaca": 75,
+        "frequenza_respiratoria": 23,
+        "temperatura": 36.7,
+        "spO2": 94,
+        "ore_sonno": 7.2,
+        "qualita_sonno": 70
+      }
+    ]
+  }

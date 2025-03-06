@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioReport</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+</head>
+<body>
+    <header> 
+        <h1>BioReport</h1>
+    </header>
+   
+    <!-- Menu a tendina per selezionare vista -->
+    <label for="vista">Seleziona il periodo:</label>
+    <select id="vista" onchange="caricaGrafico()">
+        <option value="giornaliero">Vista Mensile</option>
+        <option value="settimanale">Media Settimanale</option>
+        <option value="mensile">Media Giornaliera</option>
+    </select>
+
+    <!-- Contenitore per i grafici -->
+    <div id="grafici">
+        <div id="graficoPassi" class="grafico"></div>
+        <br>
+        <div id="interpretazionePassi" class="interpretazione"></div>
+
+        <div id="graficoFrequenzaCardiaca" class="grafico"></div>
+        <br>
+        <div id="interpretazioneFrequenzaCardiaca" class="interpretazione"></div>
+
+        <div id="graficoFrequenzaRespiratoria" class="grafico"></div>
+        <br>
+        <div id="interpretazioneFrequenzaRespiratoria" class="interpretazione"></div>
+
+        <div id="graficoTemperatura" class="grafico"></div>
+        <br>
+        <div id="interpretazioneTemperatura" class="interpretazione"></div>
+
+        <div id="graficoSpO2" class="grafico"></div>
+        <br>
+        <div id="interpretazioneSpO2" class="interpretazione"></div>
+
+        <div id="graficoSonnoOre" class="grafico"></div>
+        <br>
+        <div id="interpretazioneSonnoOre" class="interpretazione"></div>
+
+        <div id="graficoSonnoQualita" class="grafico"></div>
+        <br>
+        <div id="interpretazioneSonnoQualita" class="interpretazione"></div>
+    </div>
+
+    <script>
+       // Funzione per caricare i dati da un file JSON
+       async function caricaDati() {
+            try {
+                const response = await fetch('dati_giornalieri.json');
+                if (!response.ok) throw new Error('Errore nel caricamento dei dati');
+                const dati = await response.json();
+                return dati.giornalieri;  // Restituiamo direttamente l'array 'giornalieri'
+            } catch (error) {
+                console.error(error);
+                alert("Errore nel caricamento dei dati.");
+            }
+        }
+
+        // Funzione per calcolare medie settimanali
+        function calcolaMediaSettimanale(datiGiornalieri) {
+            const settimanale = [];
+            for (let i = 0; i < datiGiornalieri.length; i += 7) {
+                const settimana = datiGiornalieri.slice(i, i + 7);
+                const giorni = settimana.map(d => d.giorno);
+                const passi = settimana.reduce((acc, d) => acc + d.passi, 0) / settimana.length;
+                const frequenza_cardiaca = settimana.reduce((acc, d) => acc + d.frequenza_cardiaca, 0) / settimana.length;
+                const frequenza_respiratoria = settimana.reduce((acc, d) => acc + d.frequenza_respiratoria, 0) / settimana.length;
+                const temperatura = settimana.reduce((acc, d) => acc + d.temperatura, 0) / settimana.length;
+                const spO2 = settimana.reduce((acc, d) => acc + d.spO2, 0) / settimana.length;
+                const ore_sonno = settimana.reduce((acc, d) => acc + d.ore_sonno, 0) / settimana.length;
+                const qualita_sonno = settimana.reduce((acc, d) => acc + d.qualita_sonno, 0) / settimana.length;
+
+                settimanale.push({
+                    settimana: `Settimana ${Math.ceil((i + 1) / 7)}`,
+                    passi,
+                    frequenza_cardiaca,
+                    frequenza_respiratoria,
+                    temperatura,
+                    spO2,
+                    ore_sonno,
+                    qualita_sonno
+                });
+            }
+            return settimanale;
+        }
+
+        // Funzione per calcolare medie mensili
+        function calcolaMediaMensile(datiGiornalieri) {
+            const mese = [];
+            const passi = datiGiornalieri.reduce((acc, d) => acc + d.passi, 0) / datiGiornalieri.length;
+            const frequenza_cardiaca = datiGiornalieri.reduce((acc, d) => acc + d.frequenza_cardiaca, 0) / datiGiornalieri.length;
+            const frequenza_respiratoria = datiGiornalieri.reduce((acc, d) => acc + d.frequenza_respiratoria, 0) / datiGiornalieri.length;
+            const temperatura = datiGiornalieri.reduce((acc, d) => acc + d.temperatura, 0) / datiGiornalieri.length;
+            const spO2 = datiGiornalieri.reduce((acc, d) => acc + d.spO2, 0) / datiGiornalieri.length;
+            const ore_sonno = datiGiornalieri.reduce((acc, d) => acc + d.ore_sonno, 0) / datiGiornalieri.length;
+            const qualita_sonno = datiGiornalieri.reduce((acc, d) => acc + d.qualita_sonno, 0) / datiGiornalieri.length;
+
+            mese.push({
+                mese: 'Febbraio 2025',
+                passi,
+                frequenza_cardiaca,
+                frequenza_respiratoria,
+                temperatura,
+                spO2,
+                ore_sonno,
+                qualita_sonno
+            });
+
+            return mese;
+        }
+
+        // Funzione per caricare i grafici in base alla selezione
+        async function caricaGrafico() {
+            // Carica i dati dal file JSON
+            const datiGiornalieri = await caricaDati();
+            if (!datiGiornalieri || datiGiornalieri.length === 0) return;  // Se i dati non sono validi, esci dalla funzione
+
+            const vista = document.getElementById('vista').value;
+            let dati;
+            let xAxisData;
+
+            // A seconda della vista selezionata, calcola i dati
+            if (vista === "giornaliero") {
+                dati = datiGiornalieri;
+                xAxisData = dati.map(d => d.giorno);
+            } else if (vista === "settimanale") {
+                dati = calcolaMediaSettimanale(datiGiornalieri);
+                xAxisData = dati.map(d => d.settimana);
+            } else if (vista === "mensile") {
+                dati = calcolaMediaMensile(datiGiornalieri);
+                xAxisData = ['Oggi'];
+            }
+
+            // Funzione per generare un grafico
+            function generaGrafico(elementId, yData, yAxisLabel, title) {
+                const grafico = echarts.init(document.getElementById(elementId));
+
+                const option = {
+                    title: {
+                        text: title
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        type: 'category',
+                        data: xAxisData
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: yAxisLabel
+                    },
+                    series: [{
+                        data: yData,
+                        type: 'bar',
+                        itemStyle: {
+                            color: '#98c2e4'
+                        }
+                    }]
+                };
+
+                grafico.setOption(option);
+            }
+
+            // Genera i grafici
+            generaGrafico("graficoPassi", dati.map(d => d.passi), "Passi", "Numero di Passi");
+            generaGrafico("graficoFrequenzaCardiaca", dati.map(d => d.frequenza_cardiaca), "Frequenza Cardiaca", "Frequenza Cardiaca Media");
+            generaGrafico("graficoFrequenzaRespiratoria", dati.map(d => d.frequenza_respiratoria), "Frequenza Respiratoria", "Frequenza Respiratoria Media");
+            generaGrafico("graficoTemperatura", dati.map(d => d.temperatura), "Temperatura", "Temperatura Media Corporea");
+            generaGrafico("graficoSpO2", dati.map(d => d.spO2), "SpO2", "Livelli di Ossigeno nel Sangue");
+            generaGrafico("graficoSonnoOre", dati.map(d => d.ore_sonno), "Ore di Sonno", "Ore di Sonno per Giorno");
+            generaGrafico("graficoSonnoQualita", dati.map(d => d.qualita_sonno), "Qualità del Sonno", "Qualità del Sonno (%)");
+        
+            // Popolare l'interpretazione dei dati sotto ogni grafico
+            popolaInterpretazione(dati);
+        }
+
+        // Funzione per popolare l'interpretazione sotto ogni grafico
+        function popolaInterpretazione(dati) {
+            // Passi
+    const passi = dati.map(d => d.passi);
+    const mediaPassi = passi.reduce((a, b) => a + b, 0) / passi.length;
+    const interpretazionePassi = document.getElementById("interpretazionePassi");
+    interpretazionePassi.innerHTML = `<h3>Passi</h3><p>Media passi giornalieri: ${mediaPassi.toFixed(2)}</p>`;
+    if (mediaPassi < 7000) {
+        interpretazionePassi.innerHTML += `<p><strong>Suggerimento:</strong> Aumentare i passi giornalieri. Cerca di raggiungere almeno 7.000 passi al giorno per migliorare la salute cardiovascolare.</p>`;
+    }
+
+            // Frequenza cardiaca
+    const frequenzaCardiaca = dati.map(d => d.frequenza_cardiaca);
+    const mediaFrequenzaCardiaca = frequenzaCardiaca.reduce((a, b) => a + b, 0) / frequenzaCardiaca.length;
+    const interpretazioneFrequenzaCardiaca = document.getElementById("interpretazioneFrequenzaCardiaca");
+    interpretazioneFrequenzaCardiaca.innerHTML = `<h3>Frequenza Cardiaca</h3><p>Media frequenza cardiaca: ${mediaFrequenzaCardiaca.toFixed(2)} bpm</p>`;
+    if (mediaFrequenzaCardiaca > 100) {
+        interpretazioneFrequenzaCardiaca.innerHTML += `<p><strong>Suggerimento:</strong> Se la frequenza cardiaca è frequentemente alta, prova a ridurre lo stress e ad aumentare l'attività fisica.</p>`;
+    } else if (mediaFrequenzaCardiaca < 60) {
+        interpretazioneFrequenzaCardiaca.innerHTML += `<p><strong>Suggerimento:</strong> Una frequenza cardiaca troppo bassa potrebbe indicare una scarsa condizione fisica, considera di consultare un medico.</p>`;
+    }
+
+    // Frequenza respiratoria
+    const frequenzaRespiratoria = dati.map(d => d.frequenza_respiratoria);
+    const mediaFrequenzaRespiratoria = frequenzaRespiratoria.reduce((a, b) => a + b, 0) / frequenzaRespiratoria.length;
+    const interpretazioneFrequenzaRespiratoria = document.getElementById("interpretazioneFrequenzaRespiratoria");
+    interpretazioneFrequenzaRespiratoria.innerHTML = `<h3>Frequenza Respiratoria</h3><p>Media frequenza respiratoria: ${mediaFrequenzaRespiratoria.toFixed(2)} rpm</p>`;
+    if (mediaFrequenzaRespiratoria < 12 || mediaFrequenzaRespiratoria > 20) {
+        interpretazioneFrequenzaRespiratoria.innerHTML += `<p><strong>Suggerimento:</strong> Una frequenza respiratoria fuori dalla norma può indicare problemi respiratori, consulta un medico se il valore è costantemente fuori range.</p>`;
+    }
+
+    // Temperatura
+    const temperatura = dati.map(d => d.temperatura);
+    const mediaTemperatura = temperatura.reduce((a, b) => a + b, 0) / temperatura.length;
+    const interpretazioneTemperatura = document.getElementById("interpretazioneTemperatura");
+    interpretazioneTemperatura.innerHTML = `<h3>Temperatura Corporea</h3><p>Media temperatura corporea: ${mediaTemperatura.toFixed(2)}°C</p>`;
+    if (mediaTemperatura < 36.0 || mediaTemperatura > 37.5) {
+        interpretazioneTemperatura.innerHTML += `<p><strong>Suggerimento:</strong> Se la temperatura corporea è costantemente fuori dal range normale, potrebbe essere necessario consultare un medico.</p>`;
+    }
+
+    // SpO2
+    const spO2 = dati.map(d => d.spO2);
+    const mediaSpO2 = spO2.reduce((a, b) => a + b, 0) / spO2.length;
+    const interpretazioneSpO2 = document.getElementById("interpretazioneSpO2");
+    interpretazioneSpO2.innerHTML = `<h3>Livelli di Ossigeno nel Sangue (SpO2)</h3><p>Media SpO2: ${mediaSpO2.toFixed(2)}%</p>`;
+    if (mediaSpO2 < 95) {
+        interpretazioneSpO2.innerHTML += `<p><strong>Suggerimento:</strong> Se i livelli di SpO2 sono costantemente bassi, potrebbe essere necessario consultare un medico, specialmente in presenza di difficoltà respiratorie.</p>`;
+    }
+
+    // Ore di sonno
+    const oreSonno = dati.map(d => d.ore_sonno);
+    const mediaOreSonno = oreSonno.reduce((a, b) => a + b, 0) / oreSonno.length;
+    const interpretazioneSonnoOre = document.getElementById("interpretazioneSonnoOre");
+    interpretazioneSonnoOre.innerHTML = `<h3>Ore di Sonno</h3><p>Media ore di sonno: ${mediaOreSonno.toFixed(2)}</p>`;
+    if (mediaOreSonno < 7) {
+        interpretazioneSonnoOre.innerHTML += `<p><strong>Suggerimento:</strong> Cerca di dormire almeno 7-8 ore per notte per migliorare la salute mentale e fisica.</p>`;
+    }
+
+    // Qualità del sonno
+    const qualitaSonno = dati.map(d => d.qualita_sonno);
+    const mediaQualitaSonno = qualitaSonno.reduce((a, b) => a + b, 0) / qualitaSonno.length;
+    const interpretazioneSonnoQualita = document.getElementById("interpretazioneSonnoQualita");
+    interpretazioneSonnoQualita.innerHTML = `<h3>Qualità del Sonno</h3><p>Media qualità del sonno: ${mediaQualitaSonno.toFixed(2)}%</p>`;
+    if (mediaQualitaSonno < 75) {
+        interpretazioneSonnoQualita.innerHTML += `<p><strong>Suggerimento:</strong> La qualità del sonno potrebbe migliorare con una routine regolare e tecniche per ridurre lo stress prima di dormire.</p>`;
+    }
+}
+
+        // Inizializzare il grafico al caricamento della pagina
+        window.onload = caricaGrafico;
+    </script>
+
+    <footer class="footer">
+        <p>Report generato da Smartwatch Health Monitor &copy; 2025</p>
+    </footer>
+</body>
+</html>
+

@@ -1,0 +1,56 @@
+{
+    "settimanali": [
+        {
+            "giorno_inizio": "2025-02-01",
+            "passi": 8457.142857142857,
+            "frequenza_cardiaca": 71.28571428571429,
+            "frequenza_respiratoria": 18.142857142857142,
+            "temperatura": 36.64285714285715,
+            "spO2": 97.85714285714286,
+            "ore_sonno": 6.814285714285715,
+            "qualita_sonno": 86
+        },
+        {
+            "giorno_inizio": "2025-02-08",
+            "passi": 8914.285714285714,
+            "frequenza_cardiaca": 73,
+            "frequenza_respiratoria": 18.142857142857142,
+            "temperatura": 36.628571428571426,
+            "spO2": 97.42857142857143,
+            "ore_sonno": 7.057142857142857,
+            "qualita_sonno": 87.28571428571429
+        },
+        {
+            "giorno_inizio": "2025-02-15",
+            "passi": 9100,
+            "frequenza_cardiaca": 72.42857142857143,
+            "frequenza_respiratoria": 18.285714285714285,
+            "temperatura": 36.64285714285715,
+            "spO2": 97.71428571428571,
+            "ore_sonno": 7.114285714285714,
+            "qualita_sonno": 87.42857142857143
+        },
+        {
+            "giorno_inizio": "2025-02-22",
+            "passi": 8957.142857142857,
+            "frequenza_cardiaca": 72.85714285714286,
+            "frequenza_respiratoria": 18.285714285714285,
+            "temperatura": 36.62857142857143,
+            "spO2": 97.57142857142857,
+            "ore_sonno": 7.085714285714287,
+            "qualita_sonno": 86.42857142857143
+        }
+    ],
+    "mensili": [
+        {
+            "giorno_inizio": "2025-02-01",
+            "passi": 8857.142857142857,
+            "frequenza_cardiaca": 72.39285714285714,
+            "frequenza_respiratoria": 18.214285714285715,
+            "temperatura": 36.6357142857143,
+            "spO2": 97.64285714285714,
+            "ore_sonno": 7.017857142857143,
+            "qualita_sonno": 86.78571428571429
+        }
+    ]
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioReport</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+</head>
+
+<body>
+    <header> 
+        <img src="logoBioreport.png" alt="logo Bioreport" title="logo Bioreport">
+    </header>
+   
+<section class="intro">
+    <!-- Area per il contenuto che cambierà -->
+    <div id="contenuto" class="contenuto">
+        <h2>Muoversi fa bene!</h2>
+        <p>Seleziona la tua età per visualizzare le raccomandazioni adatte a te.</p>
+    </div>
+    
+    <!-- Link che sembra un bottone -->
+    <div style="text-align: right;">
+    <a href="Report.html">
+        <button>Torna al report</button>
+    </a>
+    </div>
+
+    <!-- Menù a tendina -->
+    <label for="menu">Seleziona l'età:</label>
+    <select id="menu">
+        <option value="nill"></option>
+        <option value="child">5-17 anni</option>
+        <option value="adult">18-64 anni</option>
+        <option value="senior">>65 anni</option>
+    </select>
+
+    
+    
+
+    <script>
+        // Funzione per cambiare il contenuto in base alla selezione
+        document.getElementById("menu").addEventListener("change", function () {
+            const selezione = this.value; // Ottieni il valore selezionato
+
+            // Seleziona l'elemento contenitore
+            const contenuto = document.getElementById("contenuto");
+
+            // Cambia il contenuto in base alla selezione
+            if (selezione === "child") {
+                contenuto.innerHTML = `
+                    <h2>BAMBINI E ADOLESCENTI (5-17 anni)</h2>
+                    <p>60 minuti al giorno di attività moderata.</p>
+                    <img src="ChildOre.png" alt="Attività fisica al giorno" title="Attività fisica al giorno">
+                    <img src="ChildGiorni.png" alt="Attività fisica alla settimana" title="Attività fisica alla settimana"">
+                `;
+            } else if (selezione === "adult") {
+                contenuto.innerHTML = `
+                    <h2>ADULTI (18-64 anni)</h2>
+                    <img src="AdultOre.png" alt="Attività fisica al giorno" title="Attività fisica al giorno">
+                    <img src="AdultGiorni.png" alt="Attività fisica alla settimana" title="Attività fisica alla settimana"">
+                `;
+            } else if (selezione === "senior") {
+                contenuto.innerHTML = `
+                    <h2>SENIOR (>65 anni)</h2>
+                    <img src="SeniorOre.png" alt="Attività fisica al giorno" title="Attività fisica al giorno">
+                    <img src="SeniorGiorni.png" alt="Attività fisica alla settimana" title="Attività fisica alla settimana"">
+                `;
+            } 
+        });
+    </script>
+</section>
+
+    <footer class="footer">
+        <p>Report generato da Smartwatch Health Monitor &copy; 2025</p>
+    </footer>
+</body>
+</html>

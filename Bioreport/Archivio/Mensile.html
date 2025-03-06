@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioReport</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+</head>
+<body>
+    <header> 
+        <h1>BioReport</h1>
+    </header>
+    <br>
+    <!-- Link - bottone -->
+    <div style="text-align: right;">
+        <a href="Intro.html">
+            <button>Ritorna all'Intro</button>
+        </a>
+    </div>
+
+    
+    <div style="text-align: center;">
+        <a href="AnalisiDati.html">
+            <button>Analisi dati</button>
+        </a>
+    </div>
+
+<!-- Layout con due colonne -->
+<div id="container">
+    <!-- Colonna principale -->
+    <div id="main-column">
+    <p>Interpretare correttamente i dati raccolti dal tuo smartwatch può fornire preziose informazioni per migliorare il tuo benessere fisico e mentale. Se i dati mostrano tendenze preoccupanti, come una bassa saturazione di ossigeno, frequenza cardiaca elevata o sonno insufficiente, potrebbero essere necessari aggiustamenti nello stile di vita. In questi casi, l'esercizio fisico regolare, una dieta equilibrata, tecniche di gestione dello stress e un miglioramento delle abitudini di sonno sono importanti per ottenere un miglioramento generale della salute. Se i dati continuano a indicare anomalie, è fondamentale consultare un professionista della salute per ulteriori esami.</p>
+    
+    <!-- Menu a tendina per selezionare vista -->
+    <label for="vista">Seleziona il periodo:</label>
+    <select id="vista" onchange="caricaGrafico()">
+        <option value="mensile">Media Giornaliera</option>
+        <option value="settimanale">Media Settimanale</option>
+        <option value="giornaliero">Vista Mensile</option>
+        
+    </select>
+
+    <!-- Contenitore per i grafici -->
+        <div id="grafici">
+        <div id="graficoPassi" class="grafico"></div>
+        <div id="graficoFrequenzaCardiaca" class="grafico"></div>
+        <div id="graficoFrequenzaRespiratoria" class="grafico"></div>
+        <div id="graficoTemperatura" class="grafico"></div>
+        <div id="graficoSpO2" class="grafico"></div>
+        <div id="graficoSonnoOre" class="grafico"></div>
+        <div id="graficoSonnoQualita" class="grafico"></div>
+        
+    </div>
+
+    <script>
+       // Funzione per caricare i dati da un file JSON
+       async function caricaDati() {
+            try {
+                const response = await fetch('dati_giornalieri.json');
+                if (!response.ok) throw new Error('Errore nel caricamento dei dati');
+                const dati = await response.json();
+                return dati.giornalieri;  // Restituiamo direttamente l'array 'giornalieri'
+            } catch (error) {
+                console.error(error);
+                alert("Errore nel caricamento dei dati.");
+            }
+        }
+
+        // Funzione per calcolare medie settimanali
+        function calcolaMediaSettimanale(datiGiornalieri) {
+            const settimanale = [];
+            for (let i = 0; i < datiGiornalieri.length; i += 7) {
+                const settimana = datiGiornalieri.slice(i, i + 7);
+                const giorni = settimana.map(d => d.giorno);
+                const passi = settimana.reduce((acc, d) => acc + d.passi, 0) / settimana.length;
+                const frequenza_cardiaca = settimana.reduce((acc, d) => acc + d.frequenza_cardiaca, 0) / settimana.length;
+                const frequenza_respiratoria = settimana.reduce((acc, d) => acc + d.frequenza_respiratoria, 0) / settimana.length;
+                const temperatura = settimana.reduce((acc, d) => acc + d.temperatura, 0) / settimana.length;
+                const spO2 = settimana.reduce((acc, d) => acc + d.spO2, 0) / settimana.length;
+                const ore_sonno = settimana.reduce((acc, d) => acc + d.ore_sonno, 0) / settimana.length;
+                const qualita_sonno = settimana.reduce((acc, d) => acc + d.qualita_sonno, 0) / settimana.length;
+
+                settimanale.push({
+                    settimana: `Settimana ${Math.ceil((i + 1) / 7)}`,
+                    passi,
+                    frequenza_cardiaca,
+                    frequenza_respiratoria,
+                    temperatura,
+                    spO2,
+                    ore_sonno,
+                    qualita_sonno
+                });
+            }
+            return settimanale;
+        }
+
+        // Funzione per calcolare medie mensili
+        function calcolaMediaMensile(datiGiornalieri) {
+            const mese = [];
+            const passi = datiGiornalieri.reduce((acc, d) => acc + d.passi, 0) / datiGiornalieri.length;
+            const frequenza_cardiaca = datiGiornalieri.reduce((acc, d) => acc + d.frequenza_cardiaca, 0) / datiGiornalieri.length;
+            const frequenza_respiratoria = datiGiornalieri.reduce((acc, d) => acc + d.frequenza_respiratoria, 0) / datiGiornalieri.length;
+            const temperatura = datiGiornalieri.reduce((acc, d) => acc + d.temperatura, 0) / datiGiornalieri.length;
+            const spO2 = datiGiornalieri.reduce((acc, d) => acc + d.spO2, 0) / datiGiornalieri.length;
+            const ore_sonno = datiGiornalieri.reduce((acc, d) => acc + d.ore_sonno, 0) / datiGiornalieri.length;
+            const qualita_sonno = datiGiornalieri.reduce((acc, d) => acc + d.qualita_sonno, 0) / datiGiornalieri.length;
+
+            mese.push({
+                mese: 'Febbraio 2025',
+                passi,
+                frequenza_cardiaca,
+                frequenza_respiratoria,
+                temperatura,
+                spO2,
+                ore_sonno,
+                qualita_sonno
+            });
+
+            return mese;
+        }
+
+        // Funzione per caricare i grafici in base alla selezione
+        async function caricaGrafico() {
+            // Carica i dati dal file JSON
+            const datiGiornalieri = await caricaDati();
+            if (!datiGiornalieri || datiGiornalieri.length === 0) return;  // Se i dati non sono validi, esci dalla funzione
+
+            const vista = document.getElementById('vista').value;
+            let dati;
+            let xAxisData;
+
+            // A seconda della vista selezionata, calcola i dati
+            if (vista === "giornaliero") {
+                dati = datiGiornalieri;
+                xAxisData = dati.map(d => d.giorno);
+            } else if (vista === "settimanale") {
+                dati = calcolaMediaSettimanale(datiGiornalieri);
+                xAxisData = dati.map(d => d.settimana);
+            } else if (vista === "mensile") {
+                dati = calcolaMediaMensile(datiGiornalieri);
+                xAxisData = ['Oggi'];
+            }
+
+            // Funzione per generare un grafico
+            function generaGrafico(elementId, yData, yAxisLabel, title) {
+                const grafico = echarts.init(document.getElementById(elementId));
+
+                const option = {
+                    title: {
+                        text: title
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        type: 'category',
+                        data: xAxisData
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: yAxisLabel
+                    },
+                    series: [{
+                        data: yData,
+                        type: 'bar',
+                        itemStyle: {
+                            color: '#42739d'
+                        }
+                    }]
+                };
+
+                grafico.setOption(option);
+            }
+
+            // Genera i grafici
+            generaGrafico("graficoPassi", dati.map(d => d.passi), "Passi", "Numero di Passi");
+            generaGrafico("graficoFrequenzaCardiaca", dati.map(d => d.frequenza_cardiaca), "Frequenza Cardiaca", "Frequenza Cardiaca Media");
+            generaGrafico("graficoFrequenzaRespiratoria", dati.map(d => d.frequenza_respiratoria), "Frequenza Respiratoria", "Frequenza Respiratoria Media");
+            generaGrafico("graficoTemperatura", dati.map(d => d.temperatura), "Temperatura", "Temperatura Media Corporea");
+            generaGrafico("graficoSpO2", dati.map(d => d.spO2), "SpO2", "Livelli di Ossigeno nel Sangue");
+            generaGrafico("graficoSonnoOre", dati.map(d => d.ore_sonno), "Ore di Sonno", "Ore di Sonno per Giorno");
+            generaGrafico("graficoSonnoQualita", dati.map(d => d.qualita_sonno), "Qualità del Sonno", "Qualità del Sonno (%)");
+        }
+
+        // Inizializzare il grafico al caricamento della pagina
+        window.onload = caricaGrafico;
+    </script>
+
+</div>
+
+<!-- Colonna separata (Sidebar) -->
+<div id="sidebar">
+    <h2>Sidebar</h2>
+    <p>Contenuti aggiuntivi o informazioni pertinenti possono essere inseriti qui.</p>
+</div>
+</div>
+
+    <footer class="footer">
+        <p>Report generato da Smartwatch Health Monitor &copy; 2025</p>
+    </footer>
+</body>
+</html>
+

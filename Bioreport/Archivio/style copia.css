@@ -1,0 +1,206 @@
+/* Stili generali */
+body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #f4f4f9;
+    color: #42739d;
+    line-height: 1.6;
+    margin: 20px;
+    padding: 0;
+    text-align: justify;
+    box-sizing: border-box;
+  }
+
+select {
+    margin: 20px 0;
+    padding: 5px;
+}
+
+header {
+  margin-bottom: 20px;
+  background-color: #98c2e4;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+  
+header h1 {
+  font-size: 3em;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* Contenitore principale */
+#container {
+  display: flex;
+  flex-wrap: wrap; 
+  /* justify-content: space-between; Spaziatura tra le colonne */
+  padding: 20px;
+  box-sizing: border-box; 
+}
+
+/* Colonna principale */
+#main-column {
+  flex: 3; /* Occupa 3/4 dello spazio disponibile */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 20px; /* Distanza tra la colonna principale e il sidebar */
+}
+
+/* Colonna separata (sidebar) */
+#sidebar {
+  flex: 1; /* Occupa 1/4 dello spazio disponibile */
+  background-color: #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Aggiungi questa riga */
+  max-width: 100%; /* Assicurati che non superi mai la larghezza disponibile */
+}
+#sidebar img {
+  width: 100%;      /* L'immagine prenderà tutta la larghezza disponibile della sidebar */
+  height: auto;     /* La proporzione dell'immagine verrà mantenuta */
+  max-width: 100%;  /* Assicura che l'immagine non superi mai la larghezza della sidebar */
+}
+
+
+/* Regola per dispositivi mobili (larghezza massima 768px) */
+@media (max-width: 768px) {
+  #container {
+      flex-direction: column; /* Le colonne si impilano una sopra l'altra */
+      align-items: center;
+  }
+
+  #main-column, #sidebar {
+      width: 90%; /* Le colonne occupano il 90% della larghezza */
+      margin-bottom: 20px; /* Distanza tra le colonne */
+  }
+
+  #sidebar {
+      margin-bottom: 0; /* Rimuove il margine per l'ultimo elemento */
+  }
+}
+@media (max-width: 480px) {
+  #sidebar {
+    width: 100%;  /* La sidebar occupa tutta la larghezza su dispositivi molto piccoli */
+  }
+
+  #main-column {
+    width: 100%; /* La colonna principale occupa tutta la larghezza */
+  }
+}
+
+
+/* Stile per il menù laterale 
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Stile per il contenuto principale */
+#main-content {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+.intro {
+  padding: 20px;
+  background-color: #fff;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+  
+.intro h2 {
+   color: #42739d;
+}
+  
+  /* Grafico */
+#grafici {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    text-align: center;
+}
+.grafico {
+    width: 45%;
+    height: 400px;
+}
+/*.chart-container {
+  margin: 20px 0;
+  text-align: center;
+}
+  
+.chart-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+*/
+
+.interpretazione {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: #42739d;
+  color: white;
+  margin: 20px 0;
+  border-radius: 8px
+}
+button {
+  background-color: #42739d; /* Colore di sfondo */
+  color: white; /* Colore del testo */
+  padding: 10px 20px; /* Spaziatura interna */
+  border: none; /* Rimuove il bordo */
+  border-radius: 5px; /* Angoli arrotondati */
+  cursor: pointer; /* Cambia il cursore su hover */
+  font-size: 16px; /* Imposta la dimensione del testo */
+}
+button:hover {
+  background-color: #42739d; /* Colore verde più scuro */
+}
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+  
+
+
+  
+
+  
+  
+  
+  
+  

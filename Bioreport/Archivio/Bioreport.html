@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bioreport</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Bioreport</h1>
+  </header>
+
+<!-- Menu per scegliere la vista -->
+<div class="menu">
+  <label for="periodo">Seleziona il periodo:</label>
+  <select id="periodo" onchange="updateCharts()">
+    <option value="giornaliero">Giornaliero</option>
+    <option value="settimanale">Settimanale</option>
+    <option value="mensile">Mensile</option>
+  </select>
+</div>
+
+<script src="vistaGrafici.js"></script>
+
+<section class="intro">
+  <h2>Introduzione</h2>
+  <p>Benvenuto nel tuo report personalizzato. Di seguito puoi vedere i tuoi dati giornalieri relativi a passi, frequenza cardiaca, sonno, temperatura e altro ancora!</p>
+</section>
+
+  <section class="chart-container">
+    <h2>Grafico Passi Giornalieri</h2>
+    <div id="graficoPassi" style="width: 100%; height: 400px;"></div>
+
+    <h2>Grafico Frequenza Cardiaca Media</h2>
+    <div id="graficoFrequenzaCardiaca" style="width: 100%; height: 400px;"></div>
+
+    <h2>Grafico Frequenza Respiratoria</h2>
+    <div id="graficoFrequenzaRespiratoria" style="width: 100%; height: 400px;"></div>
+
+    <h2>Grafico Temperatura Corporea</h2>
+    <div id="graficoTemperatura" style="width: 100%; height: 400px;"></div>
+
+    <h2>Grafico Livelli di SpO2</h2>
+    <div id="graficoSpO2" style="width: 100%; height: 400px;"></div>
+
+    <h2>Grafico Ore di Sonno</h2>
+    <div id="graficoOreSonno" style="width: 100%; height: 400px;"></div>
+
+    <h2>Grafico Qualità del Sonno</h2>
+    <div id="graficoQualitaSonno" style="width: 100%; height: 400px;"></div>
+  </section>
+
+  <footer>
+    <p>Report generato da Smartwatch Health Monitor &copy; 2025</p>
+  </footer>
+
+  <script src="creaGrafici.js"></script>
+ 
+</body>
+</html>
+

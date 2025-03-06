@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioReport</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <header> 
+        <h1>BioReport</h1>
+    </header>
+    <br>
+    <!-- Link - bottone -->
+    <div style="text-align: right;">
+        <a href="Intro.html">
+            <button>Ritorna all'Intro</button>
+        </a>
+    </div>
+
+    
+    <div style="text-align: center;">
+        <a href="Interpretazione.html">
+            <button>Analisi dati</button>
+        </a>
+    </div>
+
+<!-- Layout con due colonne -->
+<div id="container">
+    <!-- Colonna principale -->
+    <div id="main-column">
+    <p>Interpretare correttamente i dati raccolti dal tuo smartwatch può fornire preziose informazioni per migliorare il tuo benessere fisico e mentale. Se i dati mostrano tendenze preoccupanti, come una bassa saturazione di ossigeno, frequenza cardiaca elevata o sonno insufficiente, potrebbero essere necessari aggiustamenti nello stile di vita. In questi casi, l'esercizio fisico regolare, una dieta equilibrata, tecniche di gestione dello stress e un miglioramento delle abitudini di sonno sono importanti per ottenere un miglioramento generale della salute. Se i dati continuano a indicare anomalie, è fondamentale consultare un professionista della salute per ulteriori esami.</p>
+    
+    <!-- Menu a tendina per selezionare vista -->
+    <label for="vista">Seleziona il periodo:</label>
+    <select id="vista" onchange="caricaGrafico()">
+        <option value="giornaliero">Vista Mensile</option>
+        <option value="settimanale">Media Settimanale</option>
+        <option value="mensile">Media Giornaliera</option>
+    </select>
+
+    <!-- Contenitore per i grafici -->
+        <div id="grafici">
+        <div id="graficoPassi" class="grafico"></div>
+        <div id="interpretazionePassi" class="interpretazione">
+            <h4>Passi giornalieri</h4>
+            Dati rilevati: Numero di passi fatti in un giorno.
+            <br>
+            Valore di riferimento:
+            L'Organizzazione Mondiale della Sanità (OMS) raccomanda di camminare almeno 10.000 passi al giorno per un adulto sano. Tuttavia, ricerche recenti suggeriscono che anche obiettivi inferiori, come 7.000-8.000 passi, possano avere benefici significativi per la salute.
+            I benefici di camminare includono la riduzione del rischio di malattie cardiovascolari, diabete tipo 2 e obesità, nonché il miglioramento della salute mentale.
+            <br>
+            Suggerimenti:
+            Se il numero di passi giornalieri è inferiore ai 7.000, si consiglia di aumentare gradualmente l'attività fisica, cercando di incorporare più camminate nella routine quotidiana (ad esempio, fare delle passeggiate dopo i pasti o usare le scale invece dell'ascensore).
+            Considerare l'uso di un contapassi per monitorare i progressi.
+            
+        </div>
+
+        <div id="graficoFrequenzaCardiaca" class="grafico"></div>
+        <div id="interpretazioneFrequenzaCardiaca" class="interpretazione">
+            <h4>Frequenza cardiaca</h4>
+            Dati rilevati: Battiti cardiaci al minuto (bpm) durante il giorno.
+            Valore di riferimento:
+            La frequenza cardiaca normale a riposo per un adulto sano varia tra i 60 e i 100 battiti al minuto.
+            Una frequenza cardiaca a riposo inferiore a 60 battiti può essere normale per gli atleti ben allenati, ma valori superiori possono essere indicativi di stress, ansia, disidratazione o malattie cardiache.
+            Un aumento prolungato della frequenza cardiaca può essere un segnale di rischio per malattie cardiovascolari.
+            Suggerimenti:
+            Se la frequenza cardiaca a riposo è costantemente elevata, si consiglia di ridurre lo stress e migliorare la gestione dell'ansia, oltre ad aumentare l'attività aerobica per migliorare la salute del cuore.
+            Se la frequenza cardiaca è costantemente bassa (meno di 60 bpm senza essere un atleta), potrebbe essere utile consultare un medico per escludere problemi cardiaci.
+            
+        </div>
+
+
+        <div id="graficoFrequenzaRespiratoria" class="grafico"></div>
+        <div id="interpretazioneFrequenzaRespiratoria" class="interpretazione">
+            <h4>Frequenza respiratoria</h4>
+            Dati rilevati: Numero di respiri al minuto.
+            Valore di riferimento:
+            La frequenza respiratoria normale per un adulto a riposo varia tra 12 e 20 respiri al minuto.
+            Frequenze respiratorie superiori a 20 respiri al minuto possono indicare ansia, stress o disturbi respiratori come l'asma.
+            Suggerimenti:
+            Se i dati indicano una frequenza respiratoria elevata, potrebbe essere utile praticare tecniche di rilassamento come la respirazione profonda o la meditazione per migliorare il controllo della respirazione.
+            Un monitoraggio continuo può aiutare a comprendere meglio il comportamento respiratorio durante varie attività quotidiane.
+
+        </div>
+
+        <div id="graficoTemperatura" class="grafico"></div>
+        <div id="interpretazioneTemperatura" class="interpretazione">
+            <h4>Temperatura corporea</h4>
+            Dati rilevati: Temperatura corporea media.
+            Valore di riferimento:
+            La temperatura corporea normale è di circa 36,5°C – 37,5°C.
+            Valori superiori a 38°C possono indicare febbre, segno di infezioni o malattie.
+            Valori troppo bassi (inferiori a 35°C) potrebbero indicare ipotermia.
+            Suggerimenti:
+            Se la temperatura corporea è costantemente sopra i 37,5°C, è importante monitorare eventuali sintomi di infezioni e, se persistono, consultare un medico.
+            Monitorare la temperatura corporea per rilevare variazioni, soprattutto se correlata a sintomi come brividi o febbre.
+
+        </div>
+
+        <div id="graficoSpO2" class="grafico"></div>
+        <div id="interpretazioneSpO2" class="interpretazione">
+            <h4>Saturazione di ossigeno (SpO2)</h4>
+            Dati rilevati: Percentuale di ossigeno nel sangue.
+            Valore di riferimento:
+            Una saturazione di ossigeno normale è compresa tra il 95% e il 100%.
+            Valori inferiori al 90% possono indicare una condizione di ipossia (insufficienza di ossigeno nel sangue), che richiede attenzione medica.
+            Suggerimenti:
+            Se il valore di SpO2 scende sotto il 90%, è importante cercare assistenza medica immediata. Una bassa saturazione di ossigeno può essere segno di condizioni respiratorie gravi come l'apnea notturna, asma o malattie polmonari croniche.
+            Praticare attività aerobiche, come camminare o nuotare, per migliorare la capacità polmonare.
+
+        </div>
+
+        <div id="graficoSonnoOre" class="grafico"></div>
+        <div id="interpretazioneSonnoOre" class="interpretazione">
+            <h4>Ore di sonno</h4>
+            Dati rilevati: Numero di ore di sonno registrate.
+            Valore di riferimento:
+            Gli adulti dovrebbero mirare a dormire dalle 7 alle 9 ore per notte, secondo le linee guida dell'American Sleep Association.
+            La carenza di sonno è legata a numerosi problemi di salute, tra cui un aumento del rischio di malattie cardiovascolari, diabete e disturbi mentali.
+            Suggerimenti:
+            Se le ore di sonno sono inferiori a 7, è consigliato aumentare la qualità e la quantità del sonno. Alcuni suggerimenti includono: creare una routine di sonno regolare, evitare schermi elettronici prima di coricarsi, ridurre la caffeina e praticare tecniche di rilassamento.
+            Se la qualità del sonno è bassa (ad esempio, il sonno non è ristoratore), potrebbe essere utile esaminare i fattori ambientali (rumore, temperatura, luce) o consultare un medico per escludere disturbi come l'insonnia o l'apnea notturna.
+
+        </div>
+
+        <div id="graficoSonnoQualita" class="grafico"></div>
+        <div id="interpretazioneSonnoQualita" class="interpretazione">
+            <h4>Qualità del sonno</h4>
+            Dati rilevati: Percentuale di qualità del sonno.
+            Valore di riferimento:
+            La qualità del sonno è un parametro che dipende dalla quantità di sonno profondo e REM, e da quanto ci si sente riposati al risveglio.
+            Una qualità del sonno inferiore al 75% può indicare difficoltà nel raggiungere il sonno profondo o nel mantenere un ciclo di sonno regolare.
+            Suggerimenti:
+            Se la qualità del sonno è bassa, si consiglia di cercare di ridurre le interruzioni durante la notte, evitare l'uso di dispositivi elettronici prima di dormire, e cercare di creare un ambiente di sonno più confortevole e rilassante.
+            Tecniche come la meditazione o la lettura prima di coricarsi possono anche migliorare la qualità del sonno.
+
+        </div>
+    </div>
+
+    <script>
+       // Funzione per caricare i dati da un file JSON
+       async function caricaDati() {
+            try {
+                const response = await fetch('dati_giornalieri.json');
+                if (!response.ok) throw new Error('Errore nel caricamento dei dati');
+                const dati = await response.json();
+                return dati.giornalieri;  // Restituiamo direttamente l'array 'giornalieri'
+            } catch (error) {
+                console.error(error);
+                alert("Errore nel caricamento dei dati.");
+            }
+        }
+
+        // Funzione per calcolare medie settimanali
+        function calcolaMediaSettimanale(datiGiornalieri) {
+            const settimanale = [];
+            for (let i = 0; i < datiGiornalieri.length; i += 7) {
+                const settimana = datiGiornalieri.slice(i, i + 7);
+                const giorni = settimana.map(d => d.giorno);
+                const passi = settimana.reduce((acc, d) => acc + d.passi, 0) / settimana.length;
+                const frequenza_cardiaca = settimana.reduce((acc, d) => acc + d.frequenza_cardiaca, 0) / settimana.length;
+                const frequenza_respiratoria = settimana.reduce((acc, d) => acc + d.frequenza_respiratoria, 0) / settimana.length;
+                const temperatura = settimana.reduce((acc, d) => acc + d.temperatura, 0) / settimana.length;
+                const spO2 = settimana.reduce((acc, d) => acc + d.spO2, 0) / settimana.length;
+                const ore_sonno = settimana.reduce((acc, d) => acc + d.ore_sonno, 0) / settimana.length;
+                const qualita_sonno = settimana.reduce((acc, d) => acc + d.qualita_sonno, 0) / settimana.length;
+
+                settimanale.push({
+                    settimana: `Settimana ${Math.ceil((i + 1) / 7)}`,
+                    passi,
+                    frequenza_cardiaca,
+                    frequenza_respiratoria,
+                    temperatura,
+                    spO2,
+                    ore_sonno,
+                    qualita_sonno
+                });
+            }
+            return settimanale;
+        }
+
+        // Funzione per calcolare medie mensili
+        function calcolaMediaMensile(datiGiornalieri) {
+            const mese = [];
+            const passi = datiGiornalieri.reduce((acc, d) => acc + d.passi, 0) / datiGiornalieri.length;
+            const frequenza_cardiaca = datiGiornalieri.reduce((acc, d) => acc + d.frequenza_cardiaca, 0) / datiGiornalieri.length;
+            const frequenza_respiratoria = datiGiornalieri.reduce((acc, d) => acc + d.frequenza_respiratoria, 0) / datiGiornalieri.length;
+            const temperatura = datiGiornalieri.reduce((acc, d) => acc + d.temperatura, 0) / datiGiornalieri.length;
+            const spO2 = datiGiornalieri.reduce((acc, d) => acc + d.spO2, 0) / datiGiornalieri.length;
+            const ore_sonno = datiGiornalieri.reduce((acc, d) => acc + d.ore_sonno, 0) / datiGiornalieri.length;
+            const qualita_sonno = datiGiornalieri.reduce((acc, d) => acc + d.qualita_sonno, 0) / datiGiornalieri.length;
+
+            mese.push({
+                mese: 'Febbraio 2025',
+                passi,
+                frequenza_cardiaca,
+                frequenza_respiratoria,
+                temperatura,
+                spO2,
+                ore_sonno,
+                qualita_sonno
+            });
+
+            return mese;
+        }
+
+        // Funzione per caricare i grafici in base alla selezione
+        async function caricaGrafico() {
+            // Carica i dati dal file JSON
+            const datiGiornalieri = await caricaDati();
+            if (!datiGiornalieri || datiGiornalieri.length === 0) return;  // Se i dati non sono validi, esci dalla funzione
+
+            const vista = document.getElementById('vista').value;
+            let dati;
+            let xAxisData;
+
+            // A seconda della vista selezionata, calcola i dati
+            if (vista === "giornaliero") {
+                dati = datiGiornalieri;
+                xAxisData = dati.map(d => d.giorno);
+            } else if (vista === "settimanale") {
+                dati = calcolaMediaSettimanale(datiGiornalieri);
+                xAxisData = dati.map(d => d.settimana);
+            } else if (vista === "mensile") {
+                dati = calcolaMediaMensile(datiGiornalieri);
+                xAxisData = ['Oggi'];
+            }
+
+            // Funzione per generare un grafico
+            function generaGrafico(elementId, yData, yAxisLabel, title) {
+                const grafico = echarts.init(document.getElementById(elementId));
+
+                const option = {
+                    title: {
+                        text: title
+                    },
+                    tooltip: {},
+                    xAxis: {
+                        type: 'category',
+                        data: xAxisData
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: yAxisLabel
+                    },
+                    series: [{
+                        data: yData,
+                        type: 'bar',
+                        itemStyle: {
+                            color: '#42739d'
+                        }
+                    }]
+                };
+
+                grafico.setOption(option);
+            }
+
+            // Genera i grafici
+            generaGrafico("graficoPassi", dati.map(d => d.passi), "Passi", "Numero di Passi");
+            generaGrafico("graficoFrequenzaCardiaca", dati.map(d => d.frequenza_cardiaca), "Frequenza Cardiaca", "Frequenza Cardiaca Media");
+            generaGrafico("graficoFrequenzaRespiratoria", dati.map(d => d.frequenza_respiratoria), "Frequenza Respiratoria", "Frequenza Respiratoria Media");
+            generaGrafico("graficoTemperatura", dati.map(d => d.temperatura), "Temperatura", "Temperatura Media Corporea");
+            generaGrafico("graficoSpO2", dati.map(d => d.spO2), "SpO2", "Livelli di Ossigeno nel Sangue");
+            generaGrafico("graficoSonnoOre", dati.map(d => d.ore_sonno), "Ore di Sonno", "Ore di Sonno per Giorno");
+            generaGrafico("graficoSonnoQualita", dati.map(d => d.qualita_sonno), "Qualità del Sonno", "Qualità del Sonno (%)");
+        }
+
+        // Inizializzare il grafico al caricamento della pagina
+        window.onload = caricaGrafico;
+    </script>
+
+</div>
+
+<!-- Colonna separata (Sidebar) -->
+<div id="sidebar">
+    <h2>Sidebar</h2>
+    <p>Contenuti aggiuntivi o informazioni pertinenti possono essere inseriti qui.</p>
+</div>
+</div>
+
+    <footer class="footer">
+        <p>Report generato da Smartwatch Health Monitor &copy; 2025</p>
+    </footer>
+</body>
+</html>
+
